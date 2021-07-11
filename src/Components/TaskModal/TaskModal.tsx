@@ -112,11 +112,9 @@ const TaskModal = ({
               انتخاب تاریخ
             </label>
             <input
-              name="deadLine"
-              className="w-50"
-              disabled={mode === "show" ? true : false}
               type="date"
               id="date-picker"
+              name="deadLine"
               onChange={(event) => {
                 handleChangeInputs(event);
               }}
