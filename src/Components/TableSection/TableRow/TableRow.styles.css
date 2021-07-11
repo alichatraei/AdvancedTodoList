@@ -1,0 +1,9 @@
+tr,
+td {
+  padding: 1rem !important;
+  user-select: none;
+}
+.data-values {
+  color: white;
+  border-radius: 5px;
+}

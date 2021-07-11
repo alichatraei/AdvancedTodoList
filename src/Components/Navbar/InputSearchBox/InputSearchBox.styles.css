@@ -1,0 +1,15 @@
+.input-box {
+  border-radius: 0.5;
+  border: 0.1rem solid #f2d2ff60;
+}
+.input-box input {
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  outline: none;
+  caret-color: rgb(245, 211, 255);
+  color: white;
+}
+.input-box input::placeholder {
+  color: #ccc;
+}

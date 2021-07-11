@@ -1,0 +1,15 @@
+.sc-kpOJdX {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.sc-kpOJdX label {
+  margin: 0;
+}
+.sc-kpOJdX input {
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 0.5rem;
+  width: 217px;
+}
