@@ -10,9 +10,17 @@ const TaskModal = ({
   setData,
   data,
 }: any): JSX.Element => {
-  const [input, setInput] = React.useState(modalData);
+  const [input, setInput] = React.useState<any>(
+    mode === "edit"
+      ? modalData
+      : {
+          toDoTitle: "",
+          priority: "",
+          status: "",
+          deadLine: "",
+        }
+  );
   const handleChangeInputs = (event: React.ChangeEvent<any>) => {
-    console.log(event);
     setInput({
       ...input,
       id: Math.random() * 10,
@@ -100,14 +108,19 @@ const TaskModal = ({
             className="deadLine d-flex text-right align-items-center
     justify-content-between mx-3"
           >
+            <label htmlFor="date-picker" className="m-0">
+              انتخاب تاریخ
+            </label>
             <input
               name="deadLine"
+              className="w-50"
               disabled={mode === "show" ? true : false}
               type="date"
               id="date-picker"
               onChange={(event) => {
                 handleChangeInputs(event);
               }}
+              required
             />
           </div>
         </Modal.Body>
@@ -124,7 +137,9 @@ const TaskModal = ({
                       item.id === modalData.id ? { ...input } : item
                     )
                   );
-                setData([...data, { ...input }]);
+                if (input["deadLine"] === undefined || input["deadLine"] === "")
+                  alert("لطفا تاریخ را وارد نمایید");
+                else setData([...data, { ...input }]);
                 onHide();
               }}
             >

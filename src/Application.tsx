@@ -18,11 +18,27 @@ function Application() {
   const [showFiltersBox, setShowFiltersBox] = React.useState(false);
   const [data, setData] = React.useState<IData[]>(dataLists);
   const [filterValues, setFilterValues] = React.useState<{
-    search?: string;
-    priority?: string;
-    status?: string;
-    deadLine?: string;
-  }>({});
+    search: string;
+    priority: string;
+    status: string;
+    deadLine: string;
+  }>({
+    search: "",
+    priority: "",
+    status: "",
+    deadLine: "",
+  });
+  const [indexOfLastPost, setIndexOfLastPost] = React.useState<any>();
+  const [indexOfFirstPost] = React.useState<any>();
+  const [currentPage, setCurrentPage] = React.useState<any>(1);
+  const [postsPerPage, setPostsPerPage] = React.useState<any>();
+  React.useEffect(() => {
+    if (currentPage && postsPerPage) {
+      setIndexOfLastPost(currentPage * postsPerPage);
+      setCurrentPage(Math.ceil(data.length / postsPerPage));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postsPerPage]);
   return (
     <>
       <FiltersSideBarBox
@@ -37,8 +53,18 @@ function Application() {
         setFilterValues={setFilterValues}
         setShowFiltersBox={setShowFiltersBox}
       />
-      <TableSection filterValues={filterValues} data={data} setData={setData} />
-      <PaginationSection data={data} />
+      <TableSection
+        indexOfLastPost={indexOfLastPost}
+        indexOfFirstPost={indexOfFirstPost}
+        filterValues={filterValues}
+        data={data}
+        setData={setData}
+      />
+      <PaginationSection
+        postsPerPage={postsPerPage}
+        setPostsPerPage={setPostsPerPage}
+        data={data}
+      />
     </>
   );
 }

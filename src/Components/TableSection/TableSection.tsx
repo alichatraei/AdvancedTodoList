@@ -6,9 +6,13 @@ import { IData } from "../../Application";
 interface IProps {
   data: IData[];
   filterValues: any;
+  indexOfFirstPost: number;
+  indexOfLastPost: number;
   setData: React.Dispatch<React.SetStateAction<IData[]>>;
 }
 const TableSection: React.FC<IProps> = ({
+  indexOfFirstPost,
+  indexOfLastPost,
   filterValues,
   data,
   setData,
@@ -34,7 +38,13 @@ const TableSection: React.FC<IProps> = ({
       </tr>
     </thead>
     <tbody>
-      <TableRow filterValues={filterValues} data={data} setData={setData} />
+      <TableRow
+        indexOfLastPost={indexOfLastPost}
+        indexOfFirstPost={indexOfFirstPost}
+        filterValues={filterValues}
+        data={data}
+        setData={setData}
+      />
     </tbody>
   </Table>
 );

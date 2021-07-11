@@ -6,10 +6,19 @@ import "./TableRow.styles.css";
 import { IData } from "../../../Application";
 interface IProps {
   data: IData[];
-  filterValues: any;
+  filterValues: {
+    search: string;
+    priority: string;
+    status: string;
+    deadLine: string;
+  };
+  indexOfFirstPost: number;
+  indexOfLastPost: number;
   setData: React.Dispatch<React.SetStateAction<IData[]>>;
 }
 const TableRow: React.FC<IProps> = ({
+  indexOfFirstPost,
+  indexOfLastPost,
   filterValues,
   data,
   setData,
@@ -25,16 +34,28 @@ const TableRow: React.FC<IProps> = ({
     <>
       {data &&
         data
+          .slice(0, indexOfLastPost)
           .filter((item) => {
             if (filterValues["search"]) {
               return item.toDoTitle
                 .toLowerCase()
                 .includes(filterValues["search"].toLowerCase());
             }
-            if (filterValues["priority"])
+            if (filterValues["priority"]) {
+              if (filterValues["priority"] === "all") return item;
               return item.priotity === filterValues["priority"];
-            if (filterValues["status"])
+            }
+            if (filterValues["status"]) {
+              if (filterValues["status"] === "all") return item;
               return item.status === filterValues["status"];
+            }
+            if (filterValues["deadLine"]) {
+              if (filterValues["deadLine"] === "all") return item;
+              if (filterValues["deadLine"] === "overdue")
+                return parseInt(item.deadLine.slice(0)) < 2021;
+              if (filterValues["deadLine"] === "forFuture")
+                return parseInt(item.deadLine.slice(0)) > 2021;
+            }
             return item;
           })
           .map((item) => {
